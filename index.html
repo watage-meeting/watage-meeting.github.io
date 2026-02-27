@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>わたげミーティング｜高知のヤングケアラー居場所支援</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="わたげミーティングは高知県で活動するヤングケアラー・若者ケアラーの居場所づくりを行う任意団体です。同じ経験をした仲間とつながれる居場所を高知から広げています。">
+  <meta name="keywords" content="わたげミーティング,ヤングケアラー,若者ケアラー,高知,居場所,支援,高知非営利団体,高知任意団体,ピアサポート,高知県">
+  <meta name="author" content="わたげミーティング">
+  <link rel="canonical" href="https://watage-meeting.jp/">
+
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="わたげミーティング">
+  <meta property="og:title" content="わたげミーティング｜高知のヤングケアラー居場所支援">
+  <meta property="og:description" content="わたげミーティングは高知県で活動するヤングケアラー・若者ケアラーの居場所づくりを行う任意団体です。同じ経験をした仲間とつながれる居場所を高知から広げています。">
+  <meta property="og:url" content="https://watage-meeting.jp/">
+  <meta property="og:image" content="https://watage-meeting.jp/images/ogp.jpg">
+  <meta property="og:locale" content="ja_JP">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@watage_m_kochi">
+  <meta name="twitter:title" content="わたげミーティング｜高知のヤングケアラー居場所支援">
+  <meta name="twitter:description" content="わたげミーティングは高知県で活動するヤングケアラー・若者ケアラーの居場所づくりを行う任意団体です。同じ経験をした仲間とつながれる居場所を高知から広げています。">
+  <meta name="twitter:image" content="https://watage-meeting.jp/images/ogp.jpg">
+
+  <!-- 構造化データ（JSON-LD） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "わたげミーティング",
+    "alternateName": "watage meeting",
+    "url": "https://watage-meeting.jp/",
+    "logo": "https://watage-meeting.jp/images/logo.jpeg",
+    "description": "高知県で活動するヤングケアラー・若者ケアラーの居場所づくりを行う任意団体。",
+    "foundingDate": "2026",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "高知県"
+    },
+    "sameAs": [
+      "https://www.instagram.com/watage.meeting.kochi_/",
+      "https://x.com/watage_m_kochi"
+    ]
+  }
+  </script>  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="seeds-bg" id="seedsBg"></div>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="images/logo.jpeg" alt="わたげミーティング" class="nav-logo-img">
+        <span>わたげミーティング</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="about.html">わたしたちについて</a></li>
+        <li><a href="youngcarer.html">ヤングケアラーとは</a></li>
+        <li><a href="#news">お知らせ</a></li>
+        <li><a href="#activities">活動内容</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ヒーローセクション -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <img src="images/watage.png" alt="わたげミーティング ロゴ" class="hero-logo">
+      </div>
+      <h1>
+        ひとりじゃないよ。<br>
+        <span class="accent">高知</span>でつながる、ヤングケアラーの居場所
+      </h1>
+      <p class="hero-sub">
+        家族のケアを担う子ども・若者たちが<br>
+        安心して話せる場所、仲間に出会える場所。<br>
+        わたげの種のように、想いを広げていこう。
+      </p>
+    </div>
+  </section>
+
+  <!-- NEWSセクション -->
+  <section class="news" id="news">
+    <div class="news-container">
+      <div class="news-header reveal">
+        <span class="section-label">News &amp; Events</span>
+        <h2 class="section-title">お知らせ・イベント</h2>
+      </div>
+      <div id="upcomingEvent" class="upcoming-event reveal"></div>
+      <div class="nlist reveal">
+        <div id="newsList"></div>
+        <div class="nlist-more-wrap">
+          <button id="newsMoreBtn" class="nlist-more-btn">過去のお知らせをもっと見る ↓</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- モーダル -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="閉じる">✕</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- わたしたちについてセクション -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">About Us</span>
+        <h2 class="section-title">わたげミーティングとは</h2>
+        <p class="section-desc">
+          わたげミーティングは、高知県を拠点に活動する、病気・障害を持つ子ども若者（かつてそうだった者も含む）の居場所づくりを目的とした任意団体です。
+        </p>
+        <br>
+        <p class="section-desc">
+          家族のケアを担うことで、勉強や遊び、将来の夢をあきらめてしまう子どもたちがいます。わたげミーティングは、そんな子どもたちや若者が「ひとりじゃない」と思える場所をつくり、仲間とつながり、自分らしい人生を歩んでいけるよう活動しています。
+        </p>
+        <br>
+        <p class="section-desc">
+          わたげミーティングは20代の当事者3名の立ち上げた団体です。たんぽぽの「わたげ」のように、想いの種を風にのせて広げていきたい。そんな願いを込めています。
+        </p>
+        <div class="about-btn-wrap">
+          <a href="about.html" class="btn btn-primary">わたげミーティングについて詳しく</a>
+        </div>
+      </div>
+
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <h3 class="about-card-title">わたしたちの想い</h3>
+          <p class="about-card-text">
+            ケアを担う子どもたちが<br>
+            子どもらしく過ごせるように。<br>
+            夢をもって未来を描けるように。<br>
+            高知から、やさしいつながりを。
+          </p>
+          <div class="about-stat">
+            <div class="stat-item">
+              <div class="stat-num">17〜20</div>
+              <div class="stat-label">人に1人が<br>ヤングケアラー</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num stat-num-blue">高知</div>
+              <div class="stat-label">を拠点に<br>活動中</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ヤングケアラーとはセクション -->
+  <section class="yc-info" id="yc">
+    <div class="yc-container reveal">
+      <div class="yc-header">
+        <span class="section-label">Young Carer</span>
+        <h2 class="section-title">ヤングケアラー・若者ケアラーを知っていますか？</h2>
+      </div>
+      <div class="yc-banner">
+        <p class="yc-text">
+          本来なら大人が担うべき家族の介護や身の回りの世話、家計を支えるための労働などを、日常的に行っている子どもや若者たちがいます。彼らは「ヤングケアラー（18歳未満）」や「若者ケアラー（主に10代後半〜30代）」と呼ばれています。
+        </p>
+        <p class="yc-text">
+          病気や障がいのある家族のケアや、幼いきょうだいの世話に追われ、学業や就職、友人関係など、自分の将来に影響が出ていても、「家族なのだから自分がやるのは当たり前」と思い込み、声をあげられないケースが少なくありません。
+        </p>
+        <p class="yc-title">たとえば、こんなことを担っている子どもたちがいます</p>
+        <div class="yc-examples">
+          <span class="yc-tag">🏠 家事全般（料理・掃除・洗濯）</span>
+          <span class="yc-tag">👶 きょうだいの世話</span>
+          <span class="yc-tag">🏥 家族の介護・看病</span>
+          <span class="yc-tag">💬 感情面のサポート</span>
+          <span class="yc-tag">💰 家計を支えるアルバイト</span>
+          <span class="yc-tag">💊 投薬の管理</span>
+          <span class="yc-tag">🚗 通院の付き添い</span>
+        </div>
+      </div>
+      <div class="yc-btn-wrap">
+        <a href="youngcarer.html" class="btn btn-secondary">ヤングケアラーについて詳しく見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 活動内容セクション -->
+  <section class="activities" id="activities">
+    <div class="activities-container">
+      <div class="activities-header reveal">
+        <span class="section-label">Activities</span>
+        <h2 class="section-title">活動内容</h2>
+        <p class="section-desc">わたげミーティングは、高知県の病気・障害の家族を持つ子ども若者（かつてそうだった者も含む）のために、さまざまな活動に取り組んでいます。</p>
+      </div>
+
+      <div class="activity-cards activity-cards--four">
+        <a href="activities/tsudoi.html" class="activity-card activity-card--link reveal">
+          <div class="activity-icon">🫂</div>
+          <h3>つどい・交流会</h3>
+          <p>病気・障害の家族を持つ子ども若者（かつてそうだった者も含む）が集まり、気軽に話せる居場所です。同じ経験をもつ仲間と出会い、ケアの悩みや思いを共有できます。</p>
+          <span class="activity-card-more">詳しく見る →</span>
+        </a>
+
+        <a href="activities/recreation.html" class="activity-card activity-card--link reveal">
+          <div class="activity-icon">🎉</div>
+          <h3>レクリエーション</h3>
+          <p>たこ焼きパーティーやお出かけ、ゲーム大会など、横のつながりを深められるイベントを企画しています。「ただ楽しむ」時間を大切にしています。</p>
+          <span class="activity-card-more">詳しく見る →</span>
+        </a>
+
+        <a href="activities/lecture.html" class="activity-card activity-card--link reveal">
+          <div class="activity-icon">📢</div>
+          <h3>講演活動</h3>
+          <p>学校や地域に向けて、ヤングケアラーや若者ケアラーへの理解を広げる活動を行います。大学教授やNPO法人の方々をお招きしたり、当事者の声をお届けしたりすることで、地域全体の理解促進を目指します。</p>
+          <span class="activity-card-more">詳しく見る →</span>
+        </a>
+
+        <a href="activities/network.html" class="activity-card activity-card--link reveal">
+          <div class="activity-icon">🎤</div>
+          <h3>講師の派遣</h3>
+          <p>大学教授や当事者経験者を講師として派遣します。学校・企業・地域団体など、ヤングケアラーについて知りたい場所へ生の声をお届けします。</p>
+          <span class="activity-card-more">詳しく見る →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 活動紹介セクション -->
+  <section class="activity-intro" id="activity-intro">
+    <div class="activity-intro-container">
+      <div class="activity-intro-header reveal">
+        <span class="section-label">Activity Report</span>
+        <h2 class="section-title">活動紹介</h2>
+        <p class="section-desc">わたげミーティングの活動の様子をご紹介します。</p>
+      </div>
+
+      <div class="activity-intro-grid">
+        <a href="activities/launch.html" class="activity-intro-card activity-intro-card--link reveal">
+          <div class="activity-intro-img activity-intro-img--1">
+            <img src="images/event1.jpg" alt="立ち上げ宣誓研修会" class="activity-intro-photo">
+          </div>
+          <div class="activity-intro-content">
+            <span class="activity-intro-tag">2025.3.8</span>
+            <h3>立ち上げ宣誓研修会</h3>
+            <p>わたげミーティングの最初の活動。「私たちの居場所ってどこですか？」をテーマに高知県立大学にて研修会を開催。</p>
+            <span class="intro-card-more">詳しく見る →</span>
+          </div>
+        </a>
+
+        <a href="activities/tsudoi.html" class="activity-intro-card activity-intro-card--link reveal">
+          <div class="activity-intro-img activity-intro-img--2">
+            <img src="images/activity2.png" alt="定期つどい" class="activity-intro-photo">
+          </div>
+          <div class="activity-intro-content">
+            <span class="activity-intro-tag">今後の活動</span>
+            <h3>定期つどい・交流会（準備中）</h3>
+            <p>病気・障害の家族を持つ子ども若者（かつてそうだった者も含む）が気軽に集まれる定期的なつどいの場を準備中。詳細はSNSにてお知らせします。</p>
+          </div>
+        </a>
+
+        <a href="activities/recreation.html" class="activity-intro-card activity-intro-card--link reveal">
+          <div class="activity-intro-img activity-intro-img--3">
+            <img src="images/activity3.jpg" alt="レクリエーション" class="activity-intro-photo">
+          </div>
+          <div class="activity-intro-content">
+            <span class="activity-intro-tag">今後の活動</span>
+            <h3>レクリエーションイベント（準備中）</h3>
+            <p>楽しく過ごせるレクリエーションイベントも企画中。内容は順次お知らせしていきます。</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- メッセージセクション -->
+  <section class="message" id="message">
+    <div class="message-container reveal">
+      <span class="section-label">Message</span>
+      <h2 class="section-title message-title">あなたへのメッセージ</h2>
+      <div class="message-text">
+        家族のことで、悩んだり、大変な思いをしたりしているあなたへ。<br>
+        「自分ばかりがんばっている」<br>
+        「誰にもわかってもらえない」<br>
+        そんな風に、ひとりで抱え込んでいませんか？<br>
+        ここには、同じような経験をしてきた仲間がいます。<br><br>
+        わたげミーティングでは、仲間とのつながりを通して、<br>
+        『自分の人生』を生きるサポートをすることを目指していきます。<br>
+        あなたがホッとできる時間を目指していきます。<br>
+        ぜひ遊びに来てください。
+      </div>
+      <p class="message-author">― わたげミーティング スタッフ一同</p>
+    </div>
+  </section>
+
+  <!-- 仲間・企業募集セクション -->
+  <section class="recruit" id="recruit">
+    <div class="recruit-container">
+      <div class="recruit-header reveal">
+        <span class="section-label">Join Us</span>
+        <h2 class="section-title">一緒に広げませんか</h2>
+        <p class="section-desc">わたげミーティングは、仲間と企業さまのご協力を募集しています。</p>
+      </div>
+
+      <div class="recruit-cards">
+        <div class="recruit-card reveal">
+          <div class="recruit-icon">
+            <img src="images/icon.company.png" alt="企業・団体" class="recruit-icon-img">
+          </div>
+          <h3>企業・団体の方へ</h3>
+          <p>わたげミーティングの活動に賛同・協力いただける企業・団体を募集しています。</p>
+          <ul class="recruit-list">
+            <li>活動費のご支援・協賛</li>
+            <li>会場・場所の提供</li>
+            <li>物品・サービスの提供</li>
+            <li>広報・周知のご協力</li>
+          </ul>
+          <a href="mailto:watage.meeting.2025@gmail.com" class="btn btn-primary">お問い合わせはこちら</a>
+        </div>
+
+        <div class="recruit-card reveal">
+          <div class="recruit-icon">
+            <img src="images/icon.member.jpeg" alt="メンバー募集" class="recruit-icon-img">
+          </div>
+          <h3>メンバー募集中！</h3>
+          <p>一緒にわたげミーティングを盛り上げてくれる仲間を募集しています。</p>
+          <ul class="recruit-list">
+            <li>ヤングケアラー・元ヤングケアラー</li>
+            <li>若者ケアラーの方</li>
+            <li>支援に関心のある学生・社会人</li>
+            <li>保健医療福祉の専門職の方</li>
+          </ul>
+          <a href="mailto:watage.meeting.2025@gmail.com" class="btn btn-primary">まずは気軽に連絡を</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- お問い合わせセクション -->
+  <section class="contact" id="contact">
+    <div class="contact-container reveal">
+      <span class="section-label">Contact</span>
+      <h2 class="section-title">お問い合わせ</h2>
+      <p class="section-desc contact-desc">
+        ご相談・取材・講演のご依頼などお気軽にご連絡ください。
+      </p>
+
+      <div class="contact-cards contact-cards--three">
+        <div class="contact-card">
+          <a href="mailto:watage.meeting.2025@gmail.com" class="contact-icon-link">
+            <img src="images/mail.png" alt="メール" class="contact-icon-img">
+            <h3>メール</h3>
+            <p class="contact-card-note">2〜3日以内にご返信いたします</p>
+          </a>
+        </div>
+
+        <div class="contact-card">
+          <a href="https://www.instagram.com/watage.meeting.kochi_" target="_blank" rel="noopener" class="contact-icon-link">
+            <img src="images/insta.png" alt="Instagram" class="contact-icon-img">
+            <h3>Instagram</h3>
+            <p class="contact-card-note">DMからのご相談も歓迎です</p>
+          </a>
+        </div>
+
+        <div class="contact-card">
+          <a href="https://twitter.com/watage_m_kochi" target="_blank" rel="noopener" class="contact-icon-link">
+            <img src="images/x.png" alt="X（Twitter）" class="contact-icon-img">
+            <h3>X（Twitter）</h3>
+            <p class="contact-card-note">最新情報を発信しています</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-brand-name">わたげミーティング</p>
+        <p>高知県で活動するヤングケアラー・若者ケアラーの居場所づくりを行う任意団体。病気・障害の家族を持つ当事者3名が立ち上げました。</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>ページ</h4>
+        <ul>
+          <li><a href="#news">お知らせ</a></li>
+          <li><a href="about.html">わたしたちについて</a></li>
+          <li><a href="youngcarer.html">ヤングケアラーとは</a></li>
+          <li><a href="#activities">活動内容</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>関連リンク</h4>
+        <ul>
+          <li><a href="#">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 わたげミーティング All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/news.js"></script>
+</body>
+</html>
