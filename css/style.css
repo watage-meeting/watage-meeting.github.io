@@ -1540,3 +1540,20 @@ footer {
     height: 56px;
   }
 }
+
+/* クリックの邪魔をしない設定 */
+.seeds-bg {
+  pointer-events: none !important;
+}
+
+/* カード全体のクリック感を出す */
+.upcoming-inner, .nlist-item {
+  cursor: pointer !important;
+  position: relative;
+  z-index: 5; /* 確実に前面に出す */
+}
+
+/* ボタンなどがクリックを奪わないように調整 */
+.upcoming-btn, .nlist-arrow {
+  pointer-events: none; 
+}
