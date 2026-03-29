@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://watage-meeting.jp/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://watage-meeting.jp/about.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://watage-meeting.jp/youngcarer.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://watage-meeting.jp/activities/tsudoi.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://watage-meeting.jp/activities/recreation.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://watage-meeting.jp/activities/lecture.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://watage-meeting.jp/activities/network.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://watage-meeting.jp/activities/launch.html</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

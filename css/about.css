@@ -1,0 +1,210 @@
+/* ============================================
+   about.css - わたげミーティング 団体詳細ページ
+   ============================================ */
+
+.page-hero {
+  padding: 160px 32px 80px;
+  background: linear-gradient(170deg, var(--warm-white) 0%, var(--green-pale) 50%, var(--blue-pale) 100%);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: var(--green-deep);
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.page-hero-sub {
+  font-size: 1rem;
+  color: var(--text-soft);
+}
+
+.about-page-section {
+  padding: 80px 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-page-section--white { background: var(--warm-white); }
+.about-page-section--green { background: linear-gradient(135deg, var(--green-deep) 0%, #1b5e20 100%); }
+.about-page-section--gray  { background: var(--green-softest); }
+
+.about-page-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-label--light { color: var(--green-light) !important; }
+.about-title--white { color: white !important; }
+
+.about-page-text p {
+  font-size: 1rem;
+  color: var(--text-soft);
+  line-height: 2;
+  margin-bottom: 1.4em;
+}
+
+/* 目指すことカード */
+.vision-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.vision-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-md);
+  padding: 32px 28px;
+  backdrop-filter: blur(8px);
+  transition: background 0.3s;
+}
+
+.vision-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.vision-icon {
+  font-size: 2rem;
+  margin-bottom: 14px;
+}
+
+.vision-card h3 {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--green-deep);
+  margin-bottom: 10px;
+}
+
+.vision-card p {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+/* 代表メッセージ */
+.rep-message {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: start;
+  margin-top: 40px;
+}
+
+.rep-message-body p {
+  font-size: 1rem;
+  color: var(--text-soft);
+  line-height: 2;
+  margin-bottom: 1.4em;
+}
+
+.rep-message-sign {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-top: 24px;
+}
+
+.rep-deco-circle {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--green-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-shadow: var(--shadow-card);
+}
+
+/* 団体概要テーブル */
+.overview-table-wrap {
+  margin-top: 40px;
+  overflow-x: auto;
+}
+
+.overview-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.overview-table th,
+.overview-table td {
+  padding: 18px 28px;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--green-pale);
+}
+
+.overview-table th {
+  background: var(--green-softest);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  color: var(--green-deep);
+  white-space: nowrap;
+  width: 30%;
+}
+
+.overview-table td {
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+.overview-table tr:last-child th,
+.overview-table tr:last-child td {
+  border-bottom: none;
+}
+
+.overview-table a {
+  color: var(--blue-main);
+  text-decoration: none;
+}
+
+.overview-table a:hover {
+  text-decoration: underline;
+}
+
+/* about.cssのrevealは常に表示 */
+.about-page-section .reveal,
+.about-page-container.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .vision-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .rep-message {
+    grid-template-columns: 1fr;
+  }
+
+  .rep-deco-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .overview-table th,
+  .overview-table td {
+    padding: 14px 16px;
+  }
+
+  .overview-table th {
+    width: 40%;
+  }
+}
