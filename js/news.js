@@ -15,7 +15,9 @@ async function loadNews() {
     if (!response.ok) throw new Error('Network response was not ok');
     
     const data = await response.json();
-    newsData = data.news_list || [];
+    
+    // ↓ ここを修正：( )で囲ってから .reverse() をつけるのがコツです！
+    newsData = (data.news_list || []).reverse(); 
     
     renderNews();
   } catch (error) {
