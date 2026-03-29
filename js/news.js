@@ -1,25 +1,19 @@
 /* ============================================
-   news.js - 管理画面(news.json)からデータを読み込む
+   news.js - 管理画面のデータを詳細まで表示する完全版
    ============================================ */
 
-const SHOW_COUNT = 3; // 一覧に最初に表示する件数
-let newsData = [];    // ここに管理画面のデータが入ります
+const SHOW_COUNT = 3;
+let newsData = [];
 
 async function loadNews() {
   try {
-    // 1. 管理画面で作成された news.json を読み込む
-    const response = await fetch('./news.json');
+    // キャッシュ対策としてクエリパラメータを付与
+    const response = await fetch(`./news.json?t=${new Date().getTime()}`);
     const data = await response.json();
-    
-    // config.ymlの構造に合わせてデータを取得
     newsData = data.news_list || [];
-    
-    // 画面に表示
     renderNews();
   } catch (error) {
     console.error("データの読み込みに失敗しました:", error);
-    // データがない場合の予備表示
-    document.getElementById('newsList').innerHTML = '<p>現在、お知らせはありません。</p>';
   }
 }
 
@@ -28,14 +22,14 @@ function renderNews() {
   renderList();
 }
 
-/* 次のイベントバナー（upcomingがtrueのものを表示） */
+/* 次のイベントバナー */
 function renderUpcoming() {
   const upcoming = newsData.find(n => n.upcoming === true);
   const wrap = document.getElementById('upcomingEvent');
   if (!wrap) return;
 
   if (!upcoming) {
-    wrap.style.display = 'none'; // upcomingがなければ隠す
+    wrap.style.display = 'none';
     return;
   }
 
@@ -43,23 +37,24 @@ function renderUpcoming() {
   wrap.innerHTML = `
     <div class="upcoming-inner">
       ${upcoming.flyer ? `
-        <div class="upcoming-flyer" style="cursor:default">
+        <div class="upcoming-flyer" onclick="openDetailModal('${upcoming.title}')" style="cursor:pointer">
           <img src="${upcoming.flyer}" alt="チラシ">
+          <span class="upcoming-flyer-btn">チラシ・詳細を見る ↗</span>
         </div>` : ''}
       <div class="upcoming-body">
         <span class="upcoming-eyebrow">📌 次のイベント</span>
         <h3 class="upcoming-title">${upcoming.title}</h3>
         <p class="upcoming-date">🗓 ${upcoming.date}</p>
         <p class="upcoming-summary">${upcoming.summary}</p>
-        <button class="upcoming-btn" onclick="openDetailModal('${upcoming.title}')">詳細を見る →</button>
+        <button class="upcoming-btn" onclick="openDetailModal('${upcoming.title}')">詳細・チラシを見る →</button>
       </div>
     </div>
   `;
 }
 
-/* ニュースリスト */
+/* 一覧リスト */
 function renderList(showAll = false) {
-  const list    = document.getElementById('newsList');
+  const list = document.getElementById('newsList');
   const moreBtn = document.getElementById('newsMoreBtn');
   if (!list) return;
 
@@ -75,30 +70,36 @@ function renderList(showAll = false) {
   `).join('');
 
   if (moreBtn) {
-    if (newsData.length <= SHOW_COUNT || showAll) {
-      moreBtn.style.display = 'none';
-    } else {
-      moreBtn.style.display = 'inline-flex';
-      moreBtn.onclick = () => renderList(true);
-    }
+    moreBtn.style.display = (newsData.length <= SHOW_COUNT || showAll) ? 'none' : 'inline-flex';
+    moreBtn.onclick = () => renderList(true);
   }
 }
 
-/* モーダル表示 */
+/* 詳細モーダル（ここが重要！） */
 function openDetailModal(title) {
   const item = newsData.find(n => n.title === title);
   if (!item) return;
+
   const overlay = document.getElementById('modalOverlay');
   const content = document.getElementById('modalContent');
   
-  // markdownを簡易的にHTMLに変換（改行を反映）
-  const detailHtml = item.detail ? item.detail.replace(/\n/g, '<br>') : item.summary;
+  // Markdownの簡易変換（箇条書きや改行に対応）
+  let detailHtml = item.detail || item.summary;
+  detailHtml = detailHtml
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>') // ### 見出し
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')  // ## 見出し
+    .replace(/^\* (.*$)/gim, '<li>$1</li>')  // * 箇条書き
+    .replace(/\n/g, '<br>');                 // 改行
 
   content.innerHTML = `
-    <h2>${item.title}</h2>
-    <p class="modal-date">📅 ${item.date}</p>
-    <div class="modal-text">${detailHtml}</div>
+    ${item.flyer ? `<div class="modal-flyer"><img src="${item.flyer}" alt="チラシ"></div>` : ''}
+    <h2 class="section-title" style="font-size:1.4rem; margin-top:10px;">${item.title}</h2>
+    <p class="modal-date" style="color:var(--text-light); margin-bottom:20px;">🗓 ${item.date}</p>
+    <div class="modal-body-text" style="line-height:2;">
+      ${detailHtml.includes('<li>') ? `<ul style="margin-left:20px;">${detailHtml}</ul>` : detailHtml}
+    </div>
   `;
+
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -108,14 +109,5 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-// 閉じる処理の登録
-if (document.getElementById('modalClose')) {
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-}
-const overlay = document.getElementById('modalOverlay');
-if (overlay) {
-  overlay.addEventListener('click', function (e) { if (e.target === this) closeModal(); });
-}
-
-// 実行
+// 初期化
 loadNews();
