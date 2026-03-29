@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main # GitHubのメインブランチ名に合わせてください
+
+media_folder: "images" # 画像をアップロードした時の保存先
+public_folder: "images" # サイト上で画像を表示する時のパス
+
+collections:
+  - name: "news_setting"
+    label: "お知らせ管理"
+    files:
+      - label: "お知らせ一覧データ"
+        name: "news"
+        file: "news.json" # この1つのファイルに全データが保存されます
+        fields:
+          - label: "お知らせのリスト"
+            name: "news_list"
+            widget: "list" # どんどん追加していけるリスト形式
+            fields:
+              - {label: "タイトル", name: "title", widget: "string"}
+              - {label: "日付", name: "date", widget: "string", default: "2026年○月○日"}
+              - {label: "カテゴリー", name: "category", widget: "select", options: ["イベント", "つどい", "お知らせ", "SNS"]}
+              - {label: "短い説明（一覧に出る文字）", name: "summary", widget: "text"}
+              - {label: "チラシ画像（あれば）", name: "flyer", widget: "image", required: false}
+              - {label: "「次のイベント」として一番上に大きく表示する", name: "upcoming", widget: "boolean", default: false, required: false}
+              - {label: "詳細の文章（クリックしたときに出る内容）", name: "detail", widget: "markdown", required: false}
