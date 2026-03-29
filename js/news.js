@@ -5,9 +5,9 @@
 const SHOW_COUNT = 3;
 let newsData = [];
 
+// 1. データの読み込み
 async function loadNews() {
   try {
-    // キャッシュ対策としてクエリパラメータを付与
     const response = await fetch(`./news.json?t=${new Date().getTime()}`);
     const data = await response.json();
     newsData = data.news_list || [];
@@ -22,7 +22,7 @@ function renderNews() {
   renderList();
 }
 
-/* 次のイベントバナー */
+/* 2. 次のイベントバナー（カード全体をクリック可能に） */
 function renderUpcoming() {
   const upcoming = newsData.find(n => n.upcoming === true);
   const wrap = document.getElementById('upcomingEvent');
@@ -34,10 +34,11 @@ function renderUpcoming() {
   }
 
   wrap.style.display = 'block';
+  // カード全体(upcoming-inner)に onclick を追加しました
   wrap.innerHTML = `
-    <div class="upcoming-inner">
+    <div class="upcoming-inner" onclick="openDetailModal('${upcoming.title}')" style="cursor:pointer">
       ${upcoming.flyer ? `
-        <div class="upcoming-flyer" onclick="openDetailModal('${upcoming.title}')" style="cursor:pointer">
+        <div class="upcoming-flyer">
           <img src="${upcoming.flyer}" alt="チラシ">
           <span class="upcoming-flyer-btn">チラシ・詳細を見る ↗</span>
         </div>` : ''}
@@ -46,13 +47,13 @@ function renderUpcoming() {
         <h3 class="upcoming-title">${upcoming.title}</h3>
         <p class="upcoming-date">🗓 ${upcoming.date}</p>
         <p class="upcoming-summary">${upcoming.summary}</p>
-        <button class="upcoming-btn" onclick="openDetailModal('${upcoming.title}')">詳細・チラシを見る →</button>
+        <button class="upcoming-btn">詳細・チラシを見る →</button>
       </div>
     </div>
   `;
 }
 
-/* 一覧リスト */
+/* 3. 一覧リスト（カード全体をクリック可能） */
 function renderList(showAll = false) {
   const list = document.getElementById('newsList');
   const moreBtn = document.getElementById('newsMoreBtn');
@@ -75,7 +76,7 @@ function renderList(showAll = false) {
   }
 }
 
-/* 詳細モーダル（ここが重要！） */
+/* 4. 詳細モーダルを表示 */
 function openDetailModal(title) {
   const item = newsData.find(n => n.title === title);
   if (!item) return;
@@ -83,19 +84,19 @@ function openDetailModal(title) {
   const overlay = document.getElementById('modalOverlay');
   const content = document.getElementById('modalContent');
   
-  // Markdownの簡易変換（箇条書きや改行に対応）
+  // Markdownの簡易変換
   let detailHtml = item.detail || item.summary;
   detailHtml = detailHtml
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>') // ### 見出し
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')  // ## 見出し
-    .replace(/^\* (.*$)/gim, '<li>$1</li>')  // * 箇条書き
-    .replace(/\n/g, '<br>');                 // 改行
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+    .replace(/^\* (.*$)/gim, '<li>$1</li>')
+    .replace(/\n/g, '<br>');
 
   content.innerHTML = `
     ${item.flyer ? `<div class="modal-flyer"><img src="${item.flyer}" alt="チラシ"></div>` : ''}
     <h2 class="section-title" style="font-size:1.4rem; margin-top:10px;">${item.title}</h2>
     <p class="modal-date" style="color:var(--text-light); margin-bottom:20px;">🗓 ${item.date}</p>
-    <div class="modal-body-text" style="line-height:2;">
+    <div class="modal-body-text" style="line-height:2; color:var(--text-soft);">
       ${detailHtml.includes('<li>') ? `<ul style="margin-left:20px;">${detailHtml}</ul>` : detailHtml}
     </div>
   `;
@@ -104,10 +105,31 @@ function openDetailModal(title) {
   document.body.style.overflow = 'hidden';
 }
 
+/* 5. モーダルを閉じる（ここが復活した修正ポイント！） */
 function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
+  const overlay = document.getElementById('modalOverlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+  }
   document.body.style.overflow = '';
 }
 
-// 初期化
+// 閉じるボタンと背景クリックにイベントを登録
+document.addEventListener('DOMContentLoaded', () => {
+  const closeBtn = document.getElementById('modalClose');
+  const overlay = document.getElementById('modalOverlay');
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+  }
+  // Escキーでも閉じられるように
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+});
+
+// 実行
 loadNews();
