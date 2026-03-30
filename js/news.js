@@ -60,7 +60,7 @@ function renderUpcoming(item) {
   `;
 }
 
-/* お知らせ一覧（小カード：重複を排除） */
+/* お知らせ一覧（小カード：重複を排除 ＆ 開閉トグル付き） */
 function renderList(excludeItem, showAll = false) {
   const list = document.getElementById('newsList');
   const moreBtn = document.getElementById('newsMoreBtn');
@@ -83,14 +83,30 @@ function renderList(excludeItem, showAll = false) {
   `).join('');
 
   if (moreBtn) {
-    moreBtn.style.display = (displayData.length <= SHOW_COUNT || showAll) ? 'none' : 'inline-flex';
-    moreBtn.onclick = (e) => {
-      e.preventDefault();
-      renderList(excludeItem, true);
-    };
+    // データが3件以下ならボタン自体を隠す
+    if (displayData.length <= SHOW_COUNT) {
+      moreBtn.style.display = 'none';
+    } else {
+      // データが4件以上ある場合
+      moreBtn.style.display = 'inline-flex';
+      
+      // 開いている時は「閉じる」、閉じている時は「もっと見る」に文字を変更
+      moreBtn.innerHTML = showAll ? '閉じる ∧' : '過去のお知らせをもっと見る ∨';
+      
+      moreBtn.onclick = (e) => {
+        e.preventDefault();
+        
+        // 今の状態の「逆（開く⇔閉じる）」を実行
+        renderList(excludeItem, !showAll); 
+        
+        // 「閉じる」を押した時、リストの一番上にスムーズにスクロールして戻す
+        if (showAll) {
+          list.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      };
+    }
   }
 }
-
 /* --- 以下、モーダル制御と初期化は変更なし --- */
 function openDetailModal(title) {
   const item = newsData.find(n => n.title === title);
