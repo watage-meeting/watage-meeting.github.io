@@ -171,6 +171,34 @@ const changeFlyer = (direction) => {
   renderFlyer();
 };
 
+const flyerPoster = document.querySelector(".event-poster-button");
+const flyerPosterImage = flyerPoster?.querySelector("img");
+const flyerPreviewButtons = document.querySelectorAll(
+  "[data-flyer-preview-index]",
+);
+
+const previewFlyer = (index) => {
+  const flyer = flyerItems[index];
+  if (!flyer || !flyerPoster || !flyerPosterImage) return;
+
+  flyerPoster.dataset.flyerIndex = String(index);
+  flyerPoster.setAttribute("aria-label", `${flyer.label}を拡大表示`);
+  flyerPosterImage.src = flyer.src;
+  flyerPosterImage.alt = flyer.alt;
+
+  flyerPreviewButtons.forEach((button) => {
+    const isActive = Number(button.dataset.flyerPreviewIndex) === index;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+};
+
+flyerPreviewButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    previewFlyer(Number(button.dataset.flyerPreviewIndex));
+  });
+});
+
 document.querySelectorAll("[data-flyer-index]").forEach((button) => {
   button.addEventListener("click", () => {
     openFlyerModal(Number(button.dataset.flyerIndex), button);
