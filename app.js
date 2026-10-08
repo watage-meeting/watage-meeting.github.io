@@ -114,3 +114,81 @@ document.querySelectorAll(".brand").forEach((brand) =>
     }
   }),
 );
+
+const flyerModal = document.querySelector("#flyerModal");
+const flyerImage = flyerModal?.querySelector(".flyer-modal-image");
+const flyerCaption = flyerModal?.querySelector(".flyer-modal-caption");
+const flyerClose = flyerModal?.querySelector(".flyer-modal-close");
+const flyerPrev = flyerModal?.querySelector(".flyer-modal-prev");
+const flyerNext = flyerModal?.querySelector(".flyer-modal-next");
+const flyerItems = [
+  {
+    src: "assets/manabi-no-tsudoi-vol1-front.png",
+    alt: "まなびのつどい vol.1 共感 チラシ表面",
+    label: "チラシ表面",
+  },
+  {
+    src: "assets/manabi-no-tsudoi-vol1-program.png",
+    alt: "まなびのつどい vol.1 共感 プログラム",
+    label: "裏面・プログラム",
+  },
+];
+
+let currentFlyerIndex = 0;
+let flyerTrigger = null;
+
+const renderFlyer = () => {
+  const flyer = flyerItems[currentFlyerIndex];
+  if (!flyer || !flyerImage || !flyerCaption) return;
+
+  flyerImage.src = flyer.src;
+  flyerImage.alt = flyer.alt;
+  flyerCaption.textContent = `${currentFlyerIndex + 1} / ${flyerItems.length}　${flyer.label}`;
+};
+
+const openFlyerModal = (index, trigger) => {
+  if (!flyerModal) return;
+
+  currentFlyerIndex = index;
+  flyerTrigger = trigger;
+  renderFlyer();
+  flyerModal.hidden = false;
+  document.body.classList.add("flyer-modal-open");
+  flyerClose?.focus();
+};
+
+const closeFlyerModal = () => {
+  if (!flyerModal) return;
+
+  flyerModal.hidden = true;
+  document.body.classList.remove("flyer-modal-open");
+  flyerTrigger?.focus();
+};
+
+const changeFlyer = (direction) => {
+  currentFlyerIndex =
+    (currentFlyerIndex + direction + flyerItems.length) % flyerItems.length;
+  renderFlyer();
+};
+
+document.querySelectorAll("[data-flyer-index]").forEach((button) => {
+  button.addEventListener("click", () => {
+    openFlyerModal(Number(button.dataset.flyerIndex), button);
+  });
+});
+
+flyerClose?.addEventListener("click", closeFlyerModal);
+flyerPrev?.addEventListener("click", () => changeFlyer(-1));
+flyerNext?.addEventListener("click", () => changeFlyer(1));
+
+flyerModal?.addEventListener("click", (event) => {
+  if (event.target === flyerModal) closeFlyerModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (!flyerModal || flyerModal.hidden) return;
+
+  if (event.key === "Escape") closeFlyerModal();
+  if (event.key === "ArrowLeft") changeFlyer(-1);
+  if (event.key === "ArrowRight") changeFlyer(1);
+});

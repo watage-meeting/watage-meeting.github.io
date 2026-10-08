@@ -112,13 +112,25 @@
             </div>
           </div>
           <article class="featured-news reveal">
-            <div class="event-flyers">
-              <a href="assets/manabi-no-tsudoi-vol1-front.png" target="_blank">
+            <div class="event-media">
+              <button
+                class="event-poster-button"
+                type="button"
+                data-flyer-index="0"
+                aria-label="チラシ表面を拡大表示"
+              >
                 <img src="assets/manabi-no-tsudoi-vol1-front.png" alt="まなびのつどい vol.1 共感 チラシ表面" />
-              </a>
-              <a href="assets/manabi-no-tsudoi-vol1-program.png" target="_blank">
-                <img src="assets/manabi-no-tsudoi-vol1-program.png" alt="まなびのつどい vol.1 共感 プログラム" />
-              </a>
+                <span>チラシを拡大 ＋</span>
+              </button>
+              <button
+                class="event-program-button"
+                type="button"
+                data-flyer-index="1"
+                aria-label="プログラム面を拡大表示"
+              >
+                <img src="assets/manabi-no-tsudoi-vol1-program.png" alt="" />
+                <span>裏面・プログラムを見る <b>→</b></span>
+              </button>
             </div>
           
             <div class="news-copy">
@@ -129,29 +141,56 @@
               </h3>
           
               <p class="meta">2026年11月23日（月・祝）12:30開場／13:00開始</p>
-          
-              <dl class="event-details">
-                <div>
-                  <dt>講師</dt>
-                  <dd>精神疾患のある親を持つ子どもの会「こどもぴあ高知けんぴ」代表　後藤麻友氏<br>高知県社会福祉士会・高知県ヤングケアラーコーディネーター　門田美由希氏</dd>
-                </div>
+              <p class="event-lead">当事者・支援者・地域のみなさんで、ケアを担う子ども・若者の権利について考える学びの場です。</p>
+              <dl class="event-summary">
                 <div>
                   <dt>会場</dt>
-                  <dd>高知県立大学 永国寺キャンパス 教育研究棟 A110教室<br>Zoomとのハイブリッド形式</dd>
+                  <dd>高知県立大学 永国寺キャンパス A110教室</dd>
                 </div>
                 <div>
-                  <dt>主催</dt>
-                  <dd>高知県立大学 看護学部 森下科研｜わたげミーティング</dd>
+                  <dt>形式</dt>
+                  <dd>会場・Zoomのハイブリッド開催</dd>
                 </div>
                 <div>
-                  <dt>後援</dt>
-                  <dd>高知市、高知市教育委員会、高知県社会福祉士会、高知県医療ソーシャルワーカー協会、高知県介護支援専門員連絡協議会、高知県ホームヘルパー連絡協議会</dd>
+                  <dt>参加費</dt>
+                  <dd>無料</dd>
                 </div>
               </dl>
-              <p class="event-note">駐車場はありません。公共交通機関及び自転車などでの来場にご協力ください。</p>
-              <p class="event-support">※本事業は高知県人権啓発センター「人権ふれあい支援事業」の助成を受けて実施します。</p>
+              <details class="event-more">
+                <summary>講師・主催など詳細を見る</summary>
+                <dl class="event-details">
+                  <div>
+                    <dt>講師</dt>
+                    <dd>精神疾患のある親を持つ子どもの会「こどもぴあ高知けんぴ」代表　後藤麻友氏<br>高知県社会福祉士会・高知県ヤングケアラーコーディネーター　門田美由希氏</dd>
+                  </div>
+                  <div>
+                    <dt>主催</dt>
+                    <dd>高知県立大学 看護学部 森下科研｜わたげミーティング</dd>
+                  </div>
+                  <div>
+                    <dt>後援</dt>
+                    <dd>高知市、高知市教育委員会、高知県社会福祉士会、高知県医療ソーシャルワーカー協会、高知県介護支援専門員連絡協議会、高知県ホームヘルパー連絡協議会</dd>
+                  </div>
+                </dl>
+                <p class="event-note">駐車場はありません。公共交通機関及び自転車などでの来場にご協力ください。</p>
+                <p class="event-support">※本事業は高知県人権啓発センター「人権ふれあい支援事業」の助成を受けて実施します。</p>
+              </details>
             </div>
           </article>
+          <div class="flyer-modal" id="flyerModal" hidden>
+            <div class="flyer-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="flyerModalTitle">
+              <div class="flyer-modal-header">
+                <p id="flyerModalTitle">イベントチラシ</p>
+                <button class="flyer-modal-close" type="button" aria-label="チラシを閉じる">閉じる ×</button>
+              </div>
+              <div class="flyer-modal-stage">
+                <button class="flyer-modal-arrow flyer-modal-prev" type="button" aria-label="前の画像">‹</button>
+                <img class="flyer-modal-image" src="" alt="" />
+                <button class="flyer-modal-arrow flyer-modal-next" type="button" aria-label="次の画像">›</button>
+              </div>
+              <p class="flyer-modal-caption" aria-live="polite"></p>
+            </div>
+          </div>
           
           <div class="news-list reveal">
             <a class="news-row" href="news.html">
