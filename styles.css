@@ -1124,6 +1124,7 @@ body.flyer-modal-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background: #d9ebe3;
 }
 .activity-slide-copy {
   position: absolute;
