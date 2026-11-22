@@ -1082,6 +1082,8 @@ body.flyer-modal-open {
   gap: 24px;
 }
 .activity-marquee {
+  --activity-gap: 28px;
+  --activity-half-gap: 14px;
   position: relative;
   overflow: hidden;
   margin-top: 42px;
@@ -1096,19 +1098,25 @@ body.flyer-modal-open {
 }
 .activity-marquee-track {
   display: flex;
-  gap: 28px;
+  gap: var(--activity-gap);
   width: max-content;
+}
+/* Start the compositor animation only while the carousel is on screen. */
+.activity-marquee.is-active .activity-marquee-track {
   animation: activity-marquee 50s linear infinite;
 }
-.activity-marquee:hover .activity-marquee-track {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .activity-marquee:hover .activity-marquee-track {
+    animation-play-state: paused;
+  }
 }
 @keyframes activity-marquee {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    /* Exactly one four-card group, including the gap before its repeat. */
+    transform: translateX(calc(-50% - var(--activity-half-gap)));
   }
 }
 .activity-slide {
@@ -1700,10 +1708,6 @@ body.flyer-modal-open {
 .reveal.visible {
   opacity: 1;
   transform: none;
-}
-.activity-marquee.reveal {
-  transition-duration: 0.35s;
-  transform: translateY(12px);
 }
 .seeds {
   position: fixed;
@@ -2675,14 +2679,28 @@ body.flyer-modal-open {
     width: 100%;
   }
 }
+/* iOS Safari: avoid expensive mask and backdrop blur over moving imagery. */
+@media (max-width: 850px) {
+  .activity-marquee {
+    mask-image: none;
+  }
+  .activity-slide {
+    box-shadow: none;
+  }
+  .activity-slide-copy {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .activity-marquee {
     overflow-x: auto;
     mask-image: none;
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
   }
-  .activity-marquee-track {
+  .activity-marquee.is-active .activity-marquee-track {
     animation: none;
   }
   .activity-slide {
