@@ -2748,3 +2748,42 @@ a.news-row:focus-visible {
   .news-detail-section { padding: 22px 0 68px; }
   .news-detail-buttons .btn { width: 100%; }
 }
+
+
+/* Archived event details recovered from the original site. */
+.news-detail-archive h2 {
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+  line-height: 1.5;
+  margin: 34px 0 14px;
+}
+.news-detail-archive h3 {
+  font-size: 1.05rem;
+  margin: 22px 0 8px;
+}
+.news-detail-archive dl {
+  margin: 0 0 24px;
+  border-top: 1px solid var(--line);
+}
+.news-detail-archive dl > div {
+  display: grid;
+  grid-template-columns: minmax(88px, 112px) minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.news-detail-archive dt {
+  color: var(--green);
+  font-weight: 700;
+}
+.news-detail-archive dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.news-detail-archive ul {
+  margin: 8px 0 22px;
+  padding-left: 1.4em;
+}
+.news-detail-archive li {
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
