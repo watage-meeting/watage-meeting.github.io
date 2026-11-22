@@ -53,8 +53,8 @@
 }
 html {
   scroll-behavior: smooth;
-  overflow-x: clip;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Fallback for older browsers. */
+  overflow-x: clip; /* Does not create a scroll container, keeping sticky positioning stable. */
 }
 body {
   margin: 0;
@@ -1796,6 +1796,9 @@ body.flyer-modal-open {
   :root {
     --arc-height: clamp(44px, 10vw, 72px);
   }
+  html {
+    scroll-padding-top: 80px;
+  }
   .botanical-hero {
     bottom: auto;
     top: 92px;
@@ -1835,26 +1838,20 @@ body.flyer-modal-open {
   .hero-vertical {
     display: none;
   }
+  /* Keep the header in the page's normal flow. Mobile Safari can
+     misplace an animated fixed header when browser chrome changes size. */
   .header {
-    position: fixed;
-    right: 0;
-    left: 0;
-    background: transparent;
-    border-bottom: 0;
+    position: sticky;
+    top: 0;
+    right: auto;
+    left: auto;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
     backdrop-filter: none;
-    transition:
-      transform 0.28s ease,
-      opacity 0.28s ease;
-  }
-  .header.is-hidden {
-    transform: translateY(-110%);
-    opacity: 0;
-    pointer-events: none;
-  }
-  .header.is-scrolled {
-    background: rgba(255, 253, 248, 0.94);
-    border-bottom: 1px solid rgba(217, 233, 222, 0.9);
-    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: none;
+    transform: none;
+    opacity: 1;
+    transition: none;
   }
   .wrap {
     width: min(100% - 28px, 1160px);
@@ -1963,14 +1960,11 @@ body.flyer-modal-open {
   .menu.is-open .menu-lines span {
     background: var(--green);
   }
-  .header.is-scrolled .menu {
-    background: transparent;
-  }
   .hero {
-    padding: 108px 0 70px;
+    padding: 44px 0 70px;
   }
   .page-hero {
-    padding: 118px 0 72px;
+    padding: 54px 0 72px;
   }
   .hero-visual {
     min-height: clamp(300px, 68vw, 390px);
