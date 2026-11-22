@@ -5,68 +5,34 @@
   function initNavigation() {
     const menu = document.querySelector(".menu");
     const nav = document.querySelector(".navlinks");
-    const header = document.querySelector(".header");
-    const mobileQuery = window.matchMedia("(max-width: 650px)");
+    if (!menu || !nav) return;
 
-    menu?.addEventListener("click", () => {
-      const isOpen = nav?.classList.toggle("open") ?? false;
+    const closeMenu = () => {
+      nav.classList.remove("open");
+      menu.classList.remove("is-open");
+      menu.setAttribute("aria-expanded", "false");
+      menu.setAttribute("aria-label", "メニュー");
+    };
+
+    menu.addEventListener("click", () => {
+      const isOpen = !nav.classList.contains("open");
+      nav.classList.toggle("open", isOpen);
       menu.classList.toggle("is-open", isOpen);
       menu.setAttribute("aria-expanded", String(isOpen));
       menu.setAttribute("aria-label", isOpen ? "メニューを閉じる" : "メニュー");
-      header?.classList.remove("is-hidden");
     });
 
-    nav?.querySelectorAll("a").forEach((link) =>
-      link.addEventListener("click", () => {
-        nav.classList.remove("open");
-        menu?.classList.remove("is-open");
-        menu?.setAttribute("aria-expanded", "false");
-        menu?.setAttribute("aria-label", "メニュー");
-      }),
+    nav.querySelectorAll("a").forEach((link) =>
+      link.addEventListener("click", closeMenu),
     );
-
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
-    const updateHeaderOnScroll = () => {
-      const currentY = window.scrollY;
-      const menuOpen = nav?.classList.contains("open");
-      const isMobile = mobileQuery.matches;
-
-      if (!isMobile) {
-        header?.classList.remove("is-hidden", "is-scrolled");
-        lastScrollY = currentY;
-        ticking = false;
-        return;
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+    document.addEventListener("click", (event) => {
+      if (!menu.contains(event.target) && !nav.contains(event.target)) {
+        closeMenu();
       }
-
-      if (currentY > 12) {
-        header?.classList.add("is-scrolled");
-      } else {
-        header?.classList.remove("is-scrolled");
-      }
-
-      if (menuOpen || currentY < 48) {
-        header?.classList.remove("is-hidden");
-      } else if (currentY > lastScrollY + 6) {
-        header?.classList.add("is-hidden");
-      } else if (currentY < lastScrollY - 6) {
-        header?.classList.remove("is-hidden");
-      }
-
-      lastScrollY = currentY;
-      ticking = false;
-    };
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(updateHeaderOnScroll);
-      },
-      { passive: true },
-    );
+    });
   }
 
   // Reveal blocks as they approach the viewport, without a separate fast observer.
