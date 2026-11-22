@@ -142,6 +142,12 @@
       updateAnimation();
     }
     document.addEventListener("visibilitychange", updateAnimation);
+    // Safari can restore a page from the back/forward cache without scrolling.
+    window.addEventListener("pageshow", () => {
+      const bounds = carousel.getBoundingClientRect();
+      inViewport = bounds.bottom >= -70 && bounds.top <= window.innerHeight + 70;
+      updateAnimation();
+    });
   }
 
   function initNewsPagination() {
@@ -175,6 +181,7 @@
 
   function initFlyerModal() {
     const flyerModal = document.querySelector("#flyerModal");
+    if (!flyerModal) return;
     const flyerImage = flyerModal?.querySelector(".flyer-modal-image");
     const flyerCaption = flyerModal?.querySelector(".flyer-modal-caption");
     const flyerClose = flyerModal?.querySelector(".flyer-modal-close");
